@@ -99,7 +99,14 @@ while True:
     if START():
         break
 
-qty=1
+#start request
+
+
+#diceValue=DICE()
+#pin=DISPLAY[diceValue]
+#PORT(pin)
+
+#qty=1
 while 1:
      SNAKE(qty)
      qty=qty+1
