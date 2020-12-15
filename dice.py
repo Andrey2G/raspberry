@@ -4,6 +4,8 @@ from random import seed
 from random import randint
 
 DISPLAY = [0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x67]
+global inLoop
+inLoop = True
 
 def SETUP():
     seed(1)
@@ -18,8 +20,13 @@ def SETUP():
     IO.setup(19,IO.OUT)
     IO.setup(26,IO.OUT)
     IO.setup(12,IO.OUT)
+    GPIO.add_event_detect(15,GPIO.RISING,callback=result_ready)
     SNAKE(0)
 
+def result_ready():
+    global inLoop
+    self.inLoop=False
+    
 
 def SNAKE(qty):
     if qty == 0:
