@@ -3,24 +3,21 @@ import time                              # calling for time to provide delays in
 from random import seed
 from random import randint
 
+DISPLAY = [0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x67]
 
-seed(1)
-
-DISPLAY = [0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x67]            # string of characters storing PORT values for each digit.
-
-#SNAKE = [0x1,0x2,0x3,0x4,0x5,0x6,]
-IO.setwarnings(False)            # do not show any warnings
-IO.setmode (IO.BCM)           # programming the GPIO by BCM pin numbers. (like PIN29 as‘GPIO5’)
-
-IO.setup(15,IO.IN, pull_up_down=IO.PUD_DOWN)
-IO.setup(13,IO.OUT)             # initialize GPIO Pins as outputs
-IO.setup(6,IO.OUT)
-IO.setup(16,IO.OUT)
-IO.setup(20,IO.OUT)
-IO.setup(21,IO.OUT)
-IO.setup(19,IO.OUT)
-IO.setup(26,IO.OUT)
-IO.setup(12,IO.OUT)
+def SETUP():
+    seed(1)
+    IO.setwarnings(False)            # do not show any warnings
+    IO.setmode (IO.BCM)           # programming the GPIO by BCM pin numbers. (like PIN29 as‘GPIO5’)
+    IO.setup(15,IO.IN, pull_up_down=IO.PUD_DOWN)
+    IO.setup(13,IO.OUT)             # initialize GPIO Pins as outputs
+    IO.setup(6,IO.OUT)
+    IO.setup(16,IO.OUT)
+    IO.setup(20,IO.OUT)
+    IO.setup(21,IO.OUT)
+    IO.setup(19,IO.OUT)
+    IO.setup(26,IO.OUT)
+    IO.setup(12,IO.OUT)
 
 
 def SNAKE(qty):
@@ -80,6 +77,11 @@ def PORT(pin):                    # assigning GPIO logic by taking 'pin' value
         IO.output(12,1)            # if  bit7 of 8bit 'pin' is true, pull PIN12 high
     else:
         IO.output(12,0)            # if  bit7 of 8bit 'pin' is false, pull PIN12 low
+
+def display_result(value):
+    pin=DISPLAY[value]
+    PORT(pin)
+
 
 
 def START():
