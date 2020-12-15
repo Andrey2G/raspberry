@@ -2,6 +2,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 import urllib
 import json
 import requests
+import time
 import dice
 
 host = ""
@@ -22,14 +23,21 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     def process_dice(value):
         url = "https://api.conducttr.com/v1.1/project/73/result"
-        consumer_key = "2c7f81e654c7b28fe72fea9fca0af192053959ce2"
-        
-        headers = {'Authorization': "Bearer " + consumer_key, }
+        #demo key, will expire at 16.12.2020
+        key = "2c7f81e654c7b28fe72fea9fca0af192053959ce2"        
+        headers = {'Authorization': "Bearer " + key, }
         
         data = {"value": value}
-        dice.display_result(value)
+        
+        print("result ready")
+        dice.result_ready()
+        print("ping back to Conducttr fto activity feed")     
         response = requests.post(url, headers=headers, data=data)
         print(response)
+        print("wait 1 second")
+        time.sleep(1)
+        print("display result")
+        dice.display_result(value)
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
