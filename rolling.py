@@ -18,7 +18,7 @@ sendRequest()
 
 #display the snake
 qty=1
-while 1:
+while dice.inLoop:
      SNAKE(qty)
      qty=qty+1
      time.sleep(0.1)
