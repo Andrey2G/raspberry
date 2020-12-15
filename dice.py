@@ -8,6 +8,7 @@ global inLoop
 inLoop = True
 
 def SETUP():
+    print("setup")
     seed(1)
     IO.setwarnings(False)           
     IO.setmode (IO.BCM)           
@@ -20,15 +21,19 @@ def SETUP():
     IO.setup(19,IO.OUT)
     IO.setup(26,IO.OUT)
     IO.setup(12,IO.OUT)
-    GPIO.add_event_detect(15,GPIO.RISING,callback=result_ready)
+    IO.add_event_detect(15, IO.RISING,callback=result_ready)
     SNAKE(0)
 
-def result_ready():
-    global inLoop
-    self.inLoop=False
+def result_ready(self):
+    print("ready result")
+    print(self)
+    if self !=15:
+        print("try o stop the loop")
+        global inLoop
+        inLoop=False
     
 
-def SNAKE(qty):
+def SNAKE(qty):   
     if qty == 0:
         IO.output(13,0); IO.output(6,0); IO.output(16,0); IO.output(20,0); IO.output(21,0); IO.output(19,0); IO.output(26,0)
     elif qty == 1:
@@ -83,7 +88,10 @@ def PORT(pin):
         IO.output(12,0)          
 
 def display_result(value):
-    pin=DISPLAY[value]
+    inLoop = False
+    print("display result")
+    print(value)    
+    pin=DISPLAY[int(value)]
     PORT(pin)
 
 
